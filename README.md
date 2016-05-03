@@ -36,4 +36,4 @@ While this demonstrates the basic concept of automated enforcement of a matched 
 1. Clone the repo
 2. `(cd spock-gherkin-core && ./gradlew clean build publishToMavenLocal)`
 3. `(cd spock-gherkin-gradle && ./gradlew clean build publishToMavenLocal)`
-4. TODO
+4. `(cd spock-gherkin-demo && ./gradlew clean build)`

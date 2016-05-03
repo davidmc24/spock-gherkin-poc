@@ -1,0 +1,19 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenLocal()
+    }
+    dependencies {
+        classpath "spockgherkin:spock-gherkin-gradle:0.0.1-SNAPSHOT"
+    }
+}
+apply plugin: "spockgherkin.gradle"
+repositories {
+    jcenter()
+    mavenLocal()
+}
+dependencies {
+    featureTestRuntime "org.slf4j:slf4j-simple:1.7.13"
+}
+
+apply plugin: "idea"

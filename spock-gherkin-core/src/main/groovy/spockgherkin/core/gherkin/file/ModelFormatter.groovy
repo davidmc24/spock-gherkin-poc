@@ -41,7 +41,7 @@ class ModelFormatter extends AbstractFormatter {
 
     @Override
     void examples(Examples examples) {
-        Object.examples(examples)
+        super.examples(examples)
 //        def table = new ModelTable()
 //         TODO: populate from rows
 //        modelFeature.scenarioOutlines.last().examples = table
