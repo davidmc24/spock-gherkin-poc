@@ -1,0 +1,49 @@
+apply plugin: "java-gradle-plugin"
+apply plugin: "groovy"
+apply plugin: "idea"
+apply plugin: "maven-publish"
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile localGroovy()
+    testCompile gradleTestKit()
+    //testCompile "junit:junit:4.12"
+    testCompile("org.spockframework:spock-core:1.0-groovy-2.4") {
+        exclude group: "org.codehaus.groovy", module:"groovy-all"
+    }
+    // TODO: remove if not needed
+    testRuntime "cglib:cglib-nodep:3.1"          // allows mocking of classes (in addition to interfaces)
+    testRuntime "org.objenesis:objenesis:2.1"    // allows mocking of classes without default constructor (together with CGLIB)
+}
+
+group = "spockgherkin"
+version = "0.0.1-SNAPSHOT"
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
+
+// Write the plugin's classpath to a file to share with the tests
+task createClasspathManifest {
+    def outputDir = file("$buildDir/$name")
+
+    inputs.files sourceSets.main.runtimeClasspath
+    outputs.dir outputDir
+
+    doLast {
+        outputDir.mkdirs()
+        file("$outputDir/plugin-classpath.txt").text = sourceSets.main.runtimeClasspath.join("\n")
+    }
+}
+
+// Add the classpath file to the test runtime classpath
+dependencies {
+    testRuntime files(createClasspathManifest)
+}
